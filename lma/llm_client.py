@@ -6,6 +6,8 @@ from typing import Any, Dict, Optional
 
 import httpx
 
+from .security import sanitize_text
+
 
 class LLMClient:
     """Minimal client for remote or local LLM backends."""
@@ -19,15 +21,28 @@ class LLMClient:
         """Send ``prompt`` to the configured language model."""
 
         mode = self.config.get("mode", "gpt-4o")
-        if mode == "gpt-4o":
-            try:
-                return self._call_openai(prompt, image_path)
-            except Exception:
-                return self._call_local(prompt, image_path)
+
         try:
-            return self._call_local(prompt, image_path)
+            if mode == "gpt-4o":
+                response = self._call_openai(prompt, image_path)
+            elif mode == "local":
+                response = self._call_local(prompt, image_path)
+            else:  # auto
+                if image_path:
+                    response = self._call_openai(prompt, image_path)
+                else:
+                    response = self._call_local(prompt, image_path)
         except Exception:
-            return self._call_openai(prompt, image_path)
+            # fallback to whichever backend was not tried first
+            try:
+                if mode == "local":
+                    response = self._call_openai(prompt, image_path)
+                else:
+                    response = self._call_local(prompt, image_path)
+            except Exception:
+                response = ""
+
+        return sanitize_text(response)
 
     # ------------------------------------------------------------------
     def _call_openai(self, prompt: str, image_path: Optional[str] = None) -> str:
