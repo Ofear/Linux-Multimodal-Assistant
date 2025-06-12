@@ -1,35 +1,47 @@
-"""Mouse control utilities for automation.
+"""Mouse control utilities for automation."""
 
-In the future this module may use `pyautogui` or similar libraries to
-simulate mouse movement and clicks. Currently it provides a placeholder
-class interface.
-"""
+from __future__ import annotations
+
+import shutil
+import subprocess
+
+
+def _which(cmd: str) -> bool:
+    return shutil.which(cmd) is not None
 
 class MouseController:
-    """Control the mouse pointer using ``pyautogui``."""
+    """Control the mouse pointer."""
 
     def __init__(self) -> None:
+        self.xdotool = _which("xdotool")
+        self.ydotool = _which("ydotool")
         try:
             import pyautogui
 
             self.pg = pyautogui
-        except Exception:
+        except Exception:  # pragma: no cover - optional dependency
             self.pg = None
 
     def move(self, x: int, y: int) -> None:
         """Move the mouse to the given coordinates."""
-        if not self.pg:
-            return
-        try:
-            self.pg.moveTo(x, y)
-        except Exception:
-            pass
+        if self.xdotool:
+            subprocess.run(["xdotool", "mousemove", str(x), str(y)], check=False)
+        elif self.ydotool:
+            subprocess.run(["ydotool", "mousemove", str(x), str(y)], check=False)
+        elif self.pg:
+            try:
+                self.pg.moveTo(x, y)
+            except Exception:
+                pass
 
     def click(self) -> None:
         """Perform a mouse click."""
-        if not self.pg:
-            return
-        try:
-            self.pg.click()
-        except Exception:
-            pass
+        if self.xdotool:
+            subprocess.run(["xdotool", "click", "1"], check=False)
+        elif self.ydotool:
+            subprocess.run(["ydotool", "click", "1"], check=False)
+        elif self.pg:
+            try:
+                self.pg.click()
+            except Exception:
+                pass

@@ -35,4 +35,13 @@ def transcribe_audio(path: str) -> str:
     except Exception:
         pass
 
-    return "dummy transcript"
+    try:
+        import speech_recognition as sr
+
+        recognizer = sr.Recognizer()
+        with sr.AudioFile(path) as source:
+            audio = recognizer.record(source)
+        return recognizer.recognize_sphinx(audio)
+    except Exception:
+        pass
+    return ""
