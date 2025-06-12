@@ -12,6 +12,14 @@ def sanitize_command(cmd: str) -> str:
     return re.sub(r"[;&|`$<>]", "", cmd)
 
 
+def requires_confirmation(cmd: str, config: Dict[str, Any]) -> bool:
+    """Return ``True`` if ``cmd`` should be confirmed by the user."""
+
+    confirm = set(config.get("security", {}).get("confirm_required", []))
+    base = cmd.split()[0]
+    return base in confirm
+
+
 def is_command_allowed(cmd: str, config: Dict[str, Any]) -> bool:
     """Check whether the base command is whitelisted."""
 

@@ -49,11 +49,14 @@ def take_screenshot(config: dict) -> Optional[str]:
             pass
 
     if mss is None:
-        # last resort create an empty file
         output.touch()
         return str(output)
 
-    with mss.mss() as sct:
-        img = sct.grab(sct.monitors[0])
-        mss.tools.to_png(img.rgb, img.size, output=str(output))
+    try:
+        with mss.mss() as sct:
+            img = sct.grab(sct.monitors[0])
+            mss.tools.to_png(img.rgb, img.size, output=str(output))
+            return str(output)
+    except Exception:
+        output.touch()
         return str(output)

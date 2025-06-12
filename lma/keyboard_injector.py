@@ -6,12 +6,30 @@ or `pynput`.
 """
 
 class KeyboardInjector:
-    """Placeholder keyboard injector."""
+    """Simulate keyboard input using ``pyautogui``."""
+
+    def __init__(self) -> None:
+        try:
+            import pyautogui
+
+            self.pg = pyautogui
+        except Exception:
+            self.pg = None
 
     def type_text(self, text: str) -> None:
         """Simulate typing text on the keyboard."""
-        _ = text
+        if not self.pg:
+            return
+        try:
+            self.pg.write(text)
+        except Exception:
+            pass
 
     def send_hotkey(self, *keys: str) -> None:
         """Send a keyboard shortcut."""
-        _ = keys
+        if not self.pg:
+            return
+        try:
+            self.pg.hotkey(*keys)
+        except Exception:
+            pass
