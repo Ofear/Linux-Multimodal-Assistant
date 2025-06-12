@@ -53,6 +53,11 @@ pytest
 
 Contributions should include corresponding tests whenever possible.
 
+## Integration Testing
+
+For manual end-to-end verification on a desktop with working audio and video capture,
+follow the steps in [docs/INTEGRATION_TESTING.md](docs/INTEGRATION_TESTING.md).
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
