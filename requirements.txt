@@ -7,5 +7,6 @@ pynput
 pyperclip
 mss
 sounddevice
+soundfile
 notify2
 pytest

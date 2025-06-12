@@ -1,13 +1,12 @@
-"""Audio transcription utilities.
+"""Audio transcription utilities."""
 
-This module will include functions for converting recorded audio into
-text. A speech recognition backend such as Whisper or Vosk may be
-integrated here in the future.
-"""
+from __future__ import annotations
 
-from typing import Iterable
+from typing import Optional
 
 
-def transcribe_audio(frames: Iterable[bytes]) -> str:
-    """Placeholder for an audio transcription routine."""
-    return ""
+def transcribe_audio(path: str) -> str:
+    """Return a dummy transcript for the provided audio file path."""
+
+    _ = path
+    return "dummy transcript"

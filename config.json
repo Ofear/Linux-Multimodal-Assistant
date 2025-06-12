@@ -1,20 +1,32 @@
 {
-  "llm": {
-    "provider": "openai",
-    "endpoint": "http://localhost:8000/v1",
-    "model": "gpt-3.5-turbo",
-    "api_key": "changeme"
+  "hotkeys": {
+    "activate": "Ctrl+Alt+A",
+    "voice_input": "Ctrl+Alt+M",
+    "text_selection": "Ctrl+Alt+V",
+    "allow_custom": true
   },
-  "transcription": {
-    "provider": "whispercpp",
-    "model_path": "/path/to/ggml-base.bin"
+  "llm": {
+    "mode": "gpt-4o",
+    "openai_api_key": "sk-xxx",
+    "local_endpoint": "http://localhost:11434",
+    "primary_local_model": "llava",
+    "fallback_model": "mistral"
   },
   "tts": {
-    "provider": "piper-tts",
-    "voice": "en_US"
+    "enabled": true,
+    "engine": "piper",
+    "fallback": "espeak",
+    "voice": "en_US-lessac-medium"
   },
-  "hotkeys": {
-    "activate": "ctrl+alt+space"
+  "security": {
+    "allow_commands": ["ls", "cd", "chmod", "cat"],
+    "confirm_required": ["sudo", "rm", "mv"],
+    "sanitize_inputs": true
+  },
+  "logging": {
+    "level": "INFO",
+    "redact_sensitive": true,
+    "max_size_mb": 10
   },
   "screenshot_dir": "./screenshots"
 }
