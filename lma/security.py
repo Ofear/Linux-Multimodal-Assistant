@@ -26,3 +26,9 @@ def is_command_allowed(cmd: str, config: Dict[str, Any]) -> bool:
     allowed = set(config.get("security", {}).get("allow_commands", []))
     base = cmd.split()[0]
     return base in allowed
+
+
+def sanitize_text(text: str) -> str:
+    """Remove obvious shell injection patterns from ``text``."""
+
+    return re.sub(r"[;&|`$<>]", "", text)

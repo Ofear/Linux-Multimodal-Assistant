@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import logging
+from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import Any, Dict
 try:  # optional
@@ -47,3 +49,22 @@ def compress_image(path: str, quality: int = 80) -> None:
         img.save(path, format="JPEG", quality=quality)
     except Exception:
         pass
+
+
+def setup_logging(config: Dict[str, Any]) -> logging.Logger:
+    """Configure a rotating file logger from ``config``."""
+
+    level_name = config.get("logging", {}).get("level", "INFO")
+    level = getattr(logging, level_name.upper(), logging.INFO)
+    logger = logging.getLogger("lma")
+    if logger.handlers:
+        return logger
+
+    log_path = Path("assistant.log")
+    max_bytes = config.get("logging", {}).get("max_size_mb", 10) * 1024 * 1024
+    handler = RotatingFileHandler(log_path, maxBytes=max_bytes, backupCount=1)
+    formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(level)
+    return logger
