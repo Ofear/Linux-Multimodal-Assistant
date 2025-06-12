@@ -8,3 +8,4 @@ pyperclip
 mss
 sounddevice
 notify2
+pytest
