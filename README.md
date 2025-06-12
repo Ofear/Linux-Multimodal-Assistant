@@ -9,3 +9,12 @@ Linux Multimodal Assistant
    pip install -r requirements.txt
    ```
 3. Copy `config.json` and adjust values to match your system.
+
+## Running Tests
+
+After installing the dependencies you can run the automated test suite
+using `pytest`:
+
+```bash
+pytest
+```
