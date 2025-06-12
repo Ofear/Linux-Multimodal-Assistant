@@ -1,11 +1,20 @@
-"""Security related helpers for the assistant.
+"""Security related helpers for the assistant."""
 
-This module will hold functions related to permissions checking and
-sandboxing of assistant actions. These will help ensure that automation
-features do not inadvertently compromise system security.
-"""
+from __future__ import annotations
+
+import re
+from typing import Any, Dict
 
 
-def check_permissions() -> bool:
-    """Placeholder permission check."""
-    return True
+def sanitize_command(cmd: str) -> str:
+    """Remove common shell metacharacters from ``cmd``."""
+
+    return re.sub(r"[;&|`$<>]", "", cmd)
+
+
+def is_command_allowed(cmd: str, config: Dict[str, Any]) -> bool:
+    """Check whether the base command is whitelisted."""
+
+    allowed = set(config.get("security", {}).get("allow_commands", []))
+    base = cmd.split()[0]
+    return base in allowed
