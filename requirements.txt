@@ -1,0 +1,10 @@
+httpx
+whispercpp
+faster-whisper
+pyautogui
+piper-tts
+pynput
+pyperclip
+mss
+sounddevice
+notify2
