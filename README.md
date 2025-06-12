@@ -53,3 +53,7 @@ pytest
 ```
 
 Contributions should include corresponding tests whenever possible.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
