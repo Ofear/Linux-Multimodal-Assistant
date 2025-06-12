@@ -1,0 +1,20 @@
+{
+  "llm": {
+    "provider": "openai",
+    "endpoint": "http://localhost:8000/v1",
+    "model": "gpt-3.5-turbo",
+    "api_key": "changeme"
+  },
+  "transcription": {
+    "provider": "whispercpp",
+    "model_path": "/path/to/ggml-base.bin"
+  },
+  "tts": {
+    "provider": "piper-tts",
+    "voice": "en_US"
+  },
+  "hotkeys": {
+    "activate": "ctrl+alt+space"
+  },
+  "screenshot_dir": "./screenshots"
+}
