@@ -10,3 +10,5 @@ sounddevice
 soundfile
 notify2
 pytest
+SpeechRecognition
+pocketsphinx

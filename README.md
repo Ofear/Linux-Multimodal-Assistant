@@ -1,12 +1,12 @@
 # Linux-Multimodal-Assistant
 
-The **Linux Multimodal Assistant (LMA)** aims to provide keyboard, mouse and
-voice driven automation on Linux desktops.  It combines hotkey triggered
-workflows with speech transcription and large language model (LLM) prompts to
-help you perform repetitive tasks more quickly.
+The **Linux Multimodal Assistant (LMA)** provides keyboard, mouse and voice
+driven automation on Linux desktops. Hotkey triggered workflows capture audio
+and screenshots, transcribe speech and send prompts to large language models to
+assist with common tasks.
 
-While most modules are currently placeholders, the configuration files and test
-suite lay the groundwork for future development.
+The repository now includes working implementations for audio capture,
+transcription, screenshot handling and LLM communication.
 
 ## Installation
 
@@ -26,17 +26,16 @@ needed.  You can also customise the hotkey used to activate the assistant
 
 ## Usage and Key Features
 
-Once configured, you can experiment with the placeholder assistant by running:
+Once configured, you can launch the assistant by running:
 
 ```bash
 python -m lma.assistant
 ```
 
-The assistant will listen for the activation hotkey defined in your
-configuration file.  When triggered it will eventually capture audio from the
-microphone, transcribe your request and send it to the configured LLM.  Current
-implementations simply return placeholders, but the structure is in place for
-future automation including typing, clipboard actions and screenshot capture.
+The assistant listens for the activation hotkey defined in your configuration
+file. When triggered it captures audio from the microphone, transcribes your
+request and sends it to the configured LLM. Screenshot capture, clipboard
+management and basic mouse/keyboard control are also available.
 
 ## Contributing
 

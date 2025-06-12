@@ -1,18 +1,33 @@
-"""Hotkey listener for triggering assistant actions.
+"""Hotkey listener for triggering assistant actions."""
 
-This module will monitor global keyboard shortcuts. When specific
-hotkeys are pressed, the listener will notify the assistant to perform
-an action. Implementation will depend on system libraries such as
-`pynput` or `keyboard`.
-"""
+from __future__ import annotations
+
+from typing import Callable, Dict
+
+try:
+    from pynput import keyboard
+except Exception:  # pragma: no cover - optional dependency
+    keyboard = None
+
 
 class HotkeyListener:
-    """Placeholder hotkey listener."""
+    """Listen for global hotkeys and dispatch callbacks."""
+
+    def __init__(self, hotkeys: Dict[str, str], callback: Callable[[str], None]) -> None:
+        self.callback = callback
+        self.listener = None
+
+        if keyboard:
+            mappings = {v: (lambda name=k: self.callback(name)) for k, v in hotkeys.items()}
+            self.listener = keyboard.GlobalHotKeys(mappings)
 
     def start(self) -> None:
         """Start listening for hotkeys."""
-        pass
+        if self.listener:
+            self.listener.start()
 
     def stop(self) -> None:
         """Stop listening for hotkeys."""
-        pass
+        if self.listener:
+            self.listener.stop()
+            self.listener.join()
