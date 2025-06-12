@@ -6,12 +6,30 @@ class interface.
 """
 
 class MouseController:
-    """Placeholder mouse controller."""
+    """Control the mouse pointer using ``pyautogui``."""
+
+    def __init__(self) -> None:
+        try:
+            import pyautogui
+
+            self.pg = pyautogui
+        except Exception:
+            self.pg = None
 
     def move(self, x: int, y: int) -> None:
         """Move the mouse to the given coordinates."""
-        pass
+        if not self.pg:
+            return
+        try:
+            self.pg.moveTo(x, y)
+        except Exception:
+            pass
 
     def click(self) -> None:
         """Perform a mouse click."""
-        pass
+        if not self.pg:
+            return
+        try:
+            self.pg.click()
+        except Exception:
+            pass

@@ -8,9 +8,19 @@ use `pyperclip` or platform specific commands.
 
 def get_clipboard() -> str:
     """Return the current clipboard contents."""
-    return ""
+    try:
+        import pyperclip
+
+        return pyperclip.paste() or ""
+    except Exception:
+        return ""
 
 
 def set_clipboard(text: str) -> None:
     """Set the clipboard contents."""
-    _ = text
+    try:
+        import pyperclip
+
+        pyperclip.copy(text)
+    except Exception:
+        pass
