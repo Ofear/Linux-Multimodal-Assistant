@@ -2,7 +2,6 @@ httpx
 whispercpp
 faster-whisper
 pyautogui
-piper-tts
 pynput
 pyperclip
 mss
@@ -12,3 +11,14 @@ notify2
 pytest
 SpeechRecognition
 pocketsphinx
+# Piper TTS - install with: pip install piper-tts --no-deps piper-phonemize-fix onnxruntime numpy
+# piper-tts (install separately with --no-deps flag due to dependency conflicts)
+
+# System dependencies (install via package manager):
+# - flameshot or grim (screenshot capture)
+# - sox or ffmpeg (audio recording)
+# - xdotool or ydotool (mouse/keyboard automation)
+# - zenity (confirmation dialogs)
+# - espeak (TTS fallback)
+# - notify-send (desktop notifications)
+# - aplay or paplay (audio playback for TTS)
