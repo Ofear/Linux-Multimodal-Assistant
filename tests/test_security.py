@@ -1,13 +1,13 @@
-from lma.security import is_command_allowed, sanitize_command
+from lma.security import is_safe_command, sanitize_text
 
 
 def test_command_allowed():
     cfg = {"security": {"allow_commands": ["ls", "cat"]}}
-    assert is_command_allowed("ls -l", cfg)
-    assert not is_command_allowed("rm -rf /", cfg)
+    assert is_safe_command("ls -l", cfg)
+    assert not is_safe_command("rm -rf /", cfg)
 
 
-def test_sanitize_command():
-    dirty = "rm -rf /; echo hi"
-    clean = sanitize_command(dirty)
-    assert ";" not in clean
+def test_sanitize_text():
+    dirty = "ls; rm -rf /"
+    clean = sanitize_text(dirty)
+    assert "rm" not in clean
